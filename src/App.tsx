@@ -8,7 +8,7 @@ const copy = {
   senses: ['Вижу', 'Ощущаю', 'Слышу', 'Запах', 'Вкус'],
   titles: ['Найдите 5 вещей, которые видите', 'Заметьте 4 телесных ощущения', 'Прислушайтесь к 3 звукам', 'Заметьте 2 запаха', 'Заметьте 1 вкус'],
   hints: ['Цвет стены, свет в окне, предмет рядом. Позвольте взгляду остановиться на каждой вещи.', 'Стопы на полу, спина на стуле, ткань на коже, предмет в руках. Обратите внимание на текстуру и температуру.', 'Близкие и далёкие: шум за окном, голоса, шорох одежды. Не обязательно искать громкие звуки.', 'Запах воздуха, одежды или напитка рядом. Если ничего не замечаете, этот шаг можно пропустить.', 'Послевкусие напитка или еды, вкус во рту. Если сейчас не получается, можно просто пропустить шаг.'],
-  enterHint: 'Или нажмите Enter.', controls: 'Enter — отметить · Esc — к началу', mark: 'Заметили что-то? Нажмите на свободную отметку.', noted: 'Отмечено', item: 'Отметка', next: 'Дальше', skip: 'Пропустить', back: 'Назад', exit: 'Завершить', step: 'Шаг', done: 'Вы здесь', doneText: 'Практика завершена. Останьтесь на мгновение с тем, что замечаете сейчас.', again: 'Пройти ещё раз', home: 'К началу', note: 'Можно пропустить любой шаг или закончить раньше. Выбирайте только комфортные для вас ощущения.', footer: 'Внимание к настоящему моменту',
+  enterHint: 'Или нажмите пробел.', controls: 'Пробел — отметить · Esc — завершить', mark: 'Заметили что-то? Нажмите на свободную отметку.', noted: 'Отмечено', item: 'Отметка', next: 'Дальше', skip: 'Пропустить', back: 'Назад', exit: 'Завершить', step: 'Шаг', done: 'Вы здесь', doneText: 'Практика завершена. Останьтесь на мгновение с тем, что замечаете сейчас.', again: 'Пройти ещё раз', home: 'К началу', note: 'Можно пропустить любой шаг или закончить раньше. Выбирайте только комфортные для вас ощущения.', footer: 'Внимание к настоящему моменту',
  },
  en: {
   eyebrow: 'HERE AND NOW', title: 'Notice what’s around you', intro: 'Take a look around and follow five steps\nat your own pace.',
@@ -16,7 +16,7 @@ const copy = {
   senses: ['See', 'Feel', 'Hear', 'Smell', 'Taste'],
   titles: ['Find 5 things you can see', 'Notice 4 things you can feel', 'Listen for 3 sounds', 'Notice 2 smells', 'Notice 1 taste'],
   hints: ['The wall’s colour, light from a window, an object nearby. Let your eyes rest on each thing.', 'Feet on the floor, your back against a chair, fabric on skin, an object in your hands. Notice texture and temperature.', 'Near or far: sounds outside, voices, the rustle of clothing. Quiet sounds count too.', 'The air, your clothes or a drink nearby. If you cannot notice a smell, you can skip this step.', 'A lingering taste of food or a drink, or the taste in your mouth. You can skip this step if nothing comes to mind.'],
-  enterHint: 'Or press Enter.', controls: 'Enter — mark · Esc — back to start', mark: 'Noticed something? Tap an empty mark.', noted: 'Noticed', item: 'Mark', next: 'Next', skip: 'Skip', back: 'Back', exit: 'Finish', step: 'Step', done: 'You are here', doneText: 'The practice is complete. Stay for a moment with what you notice now.', again: 'Try again', home: 'Back to start', note: 'You can skip any step or finish early. Choose only sensations that feel comfortable.', footer: 'Attention to the present moment',
+  enterHint: 'Or press Space.', controls: 'Space — mark · Esc — finish', mark: 'Noticed something? Tap an empty mark.', noted: 'Noticed', item: 'Mark', next: 'Next', skip: 'Skip', back: 'Back', exit: 'Finish', step: 'Step', done: 'You are here', doneText: 'The practice is complete. Stay for a moment with what you notice now.', again: 'Try again', home: 'Back to start', note: 'You can skip any step or finish early. Choose only sensations that feel comfortable.', footer: 'Attention to the present moment',
  },
 };
 
@@ -37,7 +37,7 @@ export default function App() {
   if(screen!=='practice') return;
   const keyboard=(event:KeyboardEvent)=>{
    if(event.key==='Escape'){event.preventDefault();setScreen('intro');return;}
-   if(event.key!=='Enter'||event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey) return;
+   if((event.key!=='Enter'&&event.code!=='Space')||event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey) return;
    if(event.target instanceof Element && event.target.closest('button,a,input,textarea,select') && !event.target.closest('.marks button[aria-pressed]')) return;
    event.preventDefault();
    const index=marks[step].findIndex(value=>!value);
@@ -50,9 +50,9 @@ export default function App() {
  const content = <>
   {screen==='intro'? <>
    <PageIntro eyebrow={t.eyebrow} title={t.title} description={t.intro}/>
-   <section className="welcome" aria-label={t.overview}>
+   <section className="welcome ui-card" aria-label={t.overview}>
     <div className="sense-overview">{t.senses.map((name,i)=><div key={name}><span>{5-i}</span><small>{name}</small></div>)}</div>
-    <button className="primary" onClick={begin}>{t.begin}<Icon name="arrow"/></button>
+    <button type="button" className="primary" onClick={begin}>{t.begin}<Icon name="arrow"/></button>
    </section>
   </>:screen==='practice'? <>
    <section className="step-card">

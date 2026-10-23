@@ -64,14 +64,11 @@
 
 @media(pointer:coarse),(hover:none){.keyboard-hint{display:none}}
 
-.welcome{padding:12px 0 24px;max-width:520px;margin:0 auto}
-.welcome .sense-overview{margin:20px 0 44px;gap:16px}
+/* Start card follows the shared settings screens. */
+.welcome{width:100%;margin:0 auto;text-align:left}
+.welcome .sense-overview{margin:0 0 28px;gap:8px;text-align:center}
 .welcome .sense-overview>div{gap:8px}
 .welcome .sense-overview span{font-size:clamp(30px,6vw,40px)}
 .welcome .sense-overview small{font-size:11px}
-.welcome .primary{max-width:240px;margin:0 auto}
-.app-shell:has(.welcome) .ui-main{flex:1;display:flex;align-items:center;padding-top:24px;padding-bottom:64px}
-.app-shell:has(.welcome) .intro{margin-bottom:28px}
-.app-shell:has(.welcome) .ui-note{max-width:460px;margin-left:auto;margin-right:auto}
-@media(max-width:560px){.welcome .sense-overview{gap:8px}.welcome .sense-overview small{font-size:10px}.app-shell:has(.welcome) .ui-main{padding-top:16px;padding-bottom:40px}}
-@media(max-height:650px){.app-shell:has(.welcome) .ui-main{padding-top:12px;padding-bottom:24px}.welcome .sense-overview{margin-top:8px;margin-bottom:24px}.app-shell:has(.welcome) .intro{margin-bottom:12px}}
+.welcome .primary{width:100%;max-width:none;margin:0}
+@media(max-width:560px){.welcome .sense-overview small{font-size:10px}}
